@@ -1,6 +1,6 @@
 # Analytics Module
 
-This module provides a simple and flexible way to integrate analytics into your Android application. It supports multiple analytics providers such as Amplitude and Google Analytics.
+This module provides a simple and flexible way to integrate analytics into your Android application. It supports multiple analytics providers such as Amplitude,Moengage and Google Analytics.
 
 ## Installation
 
@@ -15,20 +15,26 @@ dependencies {
 ## Initialization
 
 Before you can use the analytics module, you need to initialize it. This is typically done in your application's onCreate method:
-Please replace `"your_amplitude_key"`, `"user_id"`, `"user_name"`, and `"unique_id"` with your actual values.
+Please replace `your_api_key`, and `serverZone` with your actual values.
 
 ```kotlin
- val amplitudeConfig = AmplitudeConfig("your_amplitude_key", object : OnInitializedListerner {
-    override fun onInitialized() {
-        // Handle successful initialization
-    }
+ val amplitudeConfig =
+            AmplitudePlugin(option = ConfigOption.Amplitude(
+                amplConfiguration = Configuration(
+                    apiKey = "your_api_key",
+                    serverZone = ServerZone.US,
+                    context = applicationContext,
+                ),
+            ), object: OnInitializedListerner {
+                override fun onInitialized() {
+                    Log.d("AnalyticsManager", "Amplitude Initialized")
+                }
 
-    override fun onFailedToInitialize(e: Exception) {
-        // Handle failed initialization
-    }
-})
-
-AnalyConfig.getInstance(amplitudeConfig)
+                override fun onFailedToInitialize(e: Exception) {
+                    Log.d("AnalyticsManager", "error + ${e.message}")
+                }
+            })
+        RegisterAnalyticPlugin.getInstance(amplitudeConfig)
 ```
 ## Logging Events
 you can create a data class that extends AnalyticEvents:
