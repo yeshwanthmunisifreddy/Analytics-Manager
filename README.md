@@ -31,10 +31,22 @@ Please replace `"your_amplitude_key"`, `"user_id"`, `"user_name"`, and `"unique_
 AnalyConfig.getInstance(amplitudeConfig)
 ```
 ## Logging Events
-
-To log events, you can use the logEvent method of the AnalyticManager:
+you can create a data class that extends AnalyticEvents:
+@Transient is very important this will omit the parameter from event properties 
+I am Using Gson Libray to serializeTomap 
 
 ```Kotlin
+data class HomeClickEvent(
+    @Transient override val eventName: String = "home_click",
+    @Transient override val analyticTypes: List<AnalyticType>? = listOf(
+        AnalyticType.GOOGLE,
+        AnalyticType.AMPLITUDE
+    ),
+    val page_source: String? = null,
+) : AnalyticEvents
+```
+To log events, you can use the logEvent method of the AnalyticManager
+```
 val homeClickEvent = HomeClickEvent(page_source = "home")
 AnalyticManager.logEvent(homeClickEvent)
 ```
