@@ -34,7 +34,7 @@ Please replace `your_api_key`, and `serverZone` with your actual values.
                     Log.d("AnalyticsManager", "error + ${e.message}")
                 }
             })
-        RegisterAnalyticPlugin.getInstance(amplitudeConfig)
+RegisterAnalyticPlugin.getInstance(amplitudeConfig)
 ```
 ## Logging Events
 you can create a data class that extends AnalyticEvents:
