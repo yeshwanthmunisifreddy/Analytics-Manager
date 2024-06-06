@@ -17,6 +17,11 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+    versionCatalogs {
+        create("moengage") {
+            from("com.moengage:android-dependency-catalog:4.2.0")
+        }
+    }
 }
 
 rootProject.name = "halo tracker"

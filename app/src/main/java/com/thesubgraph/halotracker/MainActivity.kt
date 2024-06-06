@@ -11,8 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.thesubgraph.analytics.common.AnalyticManager
-import com.thesubgraph.analytics.common.HomeClickEvent
+import com.moengage.core.internal.USER_ATTRIBUTE_UNIQUE_ID
+import com.thesubgraph.analytics.AnalyticManager
+import com.thesubgraph.analytics.AnalyticType
+import com.thesubgraph.analytics.UserProperties
+import com.thesubgraph.halotracker.data.events.HomeClickEvent
 import com.thesubgraph.halotracker.ui.theme.HaloTrackerTheme
 
 class MainActivity : ComponentActivity() {
@@ -26,9 +29,16 @@ class MainActivity : ComponentActivity() {
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
-                    AnalyticManager.logEvent(HomeClickEvent(
-                        page_source = "Home"
-                    ))
+                     AnalyticManager.logEvent(
+                        HomeClickEvent(
+                            page_source = "Home"
+                        )
+                    )
+                    val userProperties = UserProperties()
+                    userProperties.addProperty(
+                        UserProperties.USER_ID, "123456",
+                        listOf(AnalyticType.AMPLITUDE, AnalyticType.GOOGLE)
+                    )
                 }
             }
         }
